@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "VibeApp"
+rootProject.name = "calk-GP"
 include(":app")

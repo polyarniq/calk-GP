@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.example.calkgp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

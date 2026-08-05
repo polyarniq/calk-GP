@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Калькулятор госпошлины"
+        android:textAppearance="?attr/textAppearanceHeadlineMedium"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите категорию для расчёта"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        android:alpha="0.7"
+        android:layout_marginBottom="16dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/cardCourt"
+                layout="@layout/item_category" />
+
+            <include
+                android:id="@+id/cardArbitration"
+                layout="@layout/item_category" />
+
+            <include
+                android:id="@+id/cardNotary"
+                layout="@layout/item_category" />
+
+            <include
+                android:id="@+id/cardRegistration"
+                layout="@layout/item_category" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="На основании Налогового кодекса РФ, глава 25.3"
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        android:alpha="0.5"
+        android:gravity="center"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

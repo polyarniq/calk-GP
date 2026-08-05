@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.calkgp.ui.home.HomeFragment"
+        android:label="calk-GP"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_court"
+            app:destination="@id/courtFragment" />
+        <action
+            android:id="@+id/action_home_to_arbitration"
+            app:destination="@id/arbitrationFragment" />
+        <action
+            android:id="@+id/action_home_to_notary"
+            app:destination="@id/notaryFragment" />
+        <action
+            android:id="@+id/action_home_to_registration"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/courtFragment"
+        android:name="com.example.calkgp.ui.court.CourtFragment"
+        android:label="Суды общей юрисдикции"
+        tools:layout="@layout/fragment_court">
+        <action
+            android:id="@+id/action_court_to_result"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/arbitrationFragment"
+        android:name="com.example.calkgp.ui.arbitration.ArbitrationFragment"
+        android:label="Арбитражные суды"
+        tools:layout="@layout/fragment_arbitration">
+        <action
+            android:id="@+id/action_arbitration_to_result"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notaryFragment"
+        android:name="com.example.calkgp.ui.notary.NotaryFragment"
+        android:label="Нотариальные действия"
+        tools:layout="@layout/fragment_notary">
+        <action
+            android:id="@+id/action_notary_to_result"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.calkgp.ui.registration.RegistrationFragment"
+        android:label="Регистрация"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registration_to_result"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.calkgp.ui.result.ResultFragment"
+        android:label="Результат"
+        tools:layout="@layout/fragment_result">
+        <argument
+            android:name="amount"
+            app:argType="float"
+            android:defaultValue="0f" />
+        <argument
+            android:name="legalRef"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="description"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+
+</navigation>

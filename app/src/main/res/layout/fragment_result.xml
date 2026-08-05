@@ -55,9 +55,10 @@
                 android:id="@+id/textLegalRef"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textSize="16sp"
                 android:gravity="center"
-                android:alpha="0.6" />
+                android:alpha="0.7" />
 
         </LinearLayout>
 

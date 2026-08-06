@@ -27,7 +27,7 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val amount = arguments?.getDouble("amount") ?: 0.0
+        val amount = arguments?.getFloat("amount")?.toDouble() ?: 0.0
         val legalRef = arguments?.getString("legalRef") ?: ""
         val description = arguments?.getString("description") ?: ""
 

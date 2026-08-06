@@ -73,7 +73,7 @@ class CourtFragment : Fragment() {
             val result = DutyCalculator.calculateCourt(option.type, amount)
             findNavController().navigate(
                 R.id.action_court_to_result,
-                bundleOf("amount" to result.amount, "legalRef" to result.legalReference, "description" to result.description)
+                bundleOf("amount" to result.amount.toFloat(), "legalRef" to result.legalReference, "description" to result.description)
             )
         }
     }

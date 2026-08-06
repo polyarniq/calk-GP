@@ -73,7 +73,7 @@ class ArbitrationFragment : Fragment() {
             val result = DutyCalculator.calculateArbitration(option.type, amount)
             findNavController().navigate(
                 R.id.action_arbitration_to_result,
-                bundleOf("amount" to result.amount, "legalRef" to result.legalReference, "description" to result.description)
+                bundleOf("amount" to result.amount.toFloat(), "legalRef" to result.legalReference, "description" to result.description)
             )
         }
     }

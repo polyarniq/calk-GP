@@ -23,13 +23,13 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Build Release APK
-        run: ./gradlew assembleRelease
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
       - name: Rename APK
         run: |
           VERSION=$(grep 'versionName' app/build.gradle.kts | sed 's/.*"\(.*\)".*/\1/')
-          APK=$(find app/build/outputs/apk/release/ -name "*.apk" | head -1)
+          APK=$(find app/build/outputs/apk/debug/ -name "*.apk" | head -1)
           cp "$APK" "CalkGP-v${VERSION}.apk"
 
       - name: Upload APK

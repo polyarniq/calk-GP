@@ -1,4 +1,4 @@
-package com.example.calkgp
+package com.polyarniq.calkgp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

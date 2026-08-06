@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">calk-GP</string>
+    <string name="app_name">CalkGP</string>
+    <string name="version_format">Версия %s</string>
+    <string name="author_label">Автор</string>
+    <string name="author_name">polyarniq</string>
+    <string name="author_email">polyarniq@yandex.ru</string>
+    <string name="about_title">О приложении</string>
+    <string name="about_description">Калькулятор государственной пошлины РФ. Расчёт размера госпошлины на основании главы 25.3 Налогового кодекса Российской Федерации.</string>
+    <string name="legal_disclaimer">Приложение носит информационный характер и не является юридической консультацией. Для точного определения размера госпошлины рекомендуется обращаться к актуальному тексту НК РФ.</string>
+    <string name="copyright">© 2026 polyarniq. Все права защищены.</string>
+    <string name="home_subtitle">Выберите категорию для расчёта</string>
+    <string name="home_legal_ref">На основании Налогового кодекса РФ, глава 25.3</string>
+    <string name="btn_calculate">Рассчитать</string>
+    <string name="btn_again">Рассчитать ещё</string>
+    <string name="btn_copy">Скопировать</string>
+    <string name="result_title">Размер госпошлины</string>
+    <string name="hint_amount">Введите сумму в рублях</string>
+    <string name="hint_select">Выберите</string>
+    <string name="error_amount">Введите сумму</string>
+    <string name="copied">Скопировано</string>
 </resources>

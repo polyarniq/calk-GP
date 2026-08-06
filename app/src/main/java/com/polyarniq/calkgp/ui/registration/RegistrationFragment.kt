@@ -1,4 +1,4 @@
-package com.example.calkgp.ui.registration
+package com.polyarniq.calkgp.ui.registration
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.calkgp.R
-import com.example.calkgp.calculator.DutyCalculator
-import com.example.calkgp.databinding.FragmentRegistrationBinding
-import com.example.calkgp.model.*
+import com.polyarniq.calkgp.R
+import com.polyarniq.calkgp.calculator.DutyCalculator
+import com.polyarniq.calkgp.databinding.FragmentRegistrationBinding
+import com.polyarniq.calkgp.model.*
 
 class RegistrationFragment : Fragment() {
 

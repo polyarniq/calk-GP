@@ -1,4 +1,4 @@
-package com.example.calkgp.ui.notary
+package com.polyarniq.calkgp.ui.notary
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.calkgp.R
-import com.example.calkgp.calculator.DutyCalculator
-import com.example.calkgp.databinding.FragmentNotaryBinding
-import com.example.calkgp.model.NotaryType
+import com.polyarniq.calkgp.R
+import com.polyarniq.calkgp.calculator.DutyCalculator
+import com.polyarniq.calkgp.databinding.FragmentNotaryBinding
+import com.polyarniq.calkgp.model.NotaryType
 
 class NotaryFragment : Fragment() {
 
@@ -50,7 +50,7 @@ class NotaryFragment : Fragment() {
             val selectedName = binding.dropdownAction.text.toString()
             val option = options.find { it.name == selectedName }
             if (option == null) {
-                Toast.makeText(requireContext(), "Выберите действие", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.hint_select), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -58,7 +58,7 @@ class NotaryFragment : Fragment() {
                 val amountStr = binding.editAmount.text.toString().replace(",", ".")
                 val parsed = amountStr.toDoubleOrNull()
                 if (parsed == null || parsed <= 0) {
-                    Toast.makeText(requireContext(), "Введите сумму", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_amount), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 parsed

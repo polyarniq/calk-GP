@@ -1,4 +1,4 @@
-package com.example.calkgp.ui.home
+package com.polyarniq.calkgp.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.calkgp.R
-import com.example.calkgp.databinding.FragmentHomeBinding
+import com.polyarniq.calkgp.BuildConfig
+import com.polyarniq.calkgp.R
+import com.polyarniq.calkgp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
@@ -21,6 +22,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.textVersion.text = getString(R.string.version_format, BuildConfig.VERSION_NAME)
 
         binding.cardCourt.title.text = "Суды общей юрисдикции"
         binding.cardCourt.subtitle.text = "Ст. 333.19 НК РФ"
@@ -48,6 +51,10 @@ class HomeFragment : Fragment() {
         binding.cardRegistration.icon.setImageResource(android.R.drawable.ic_menu_add)
         binding.cardRegistration.card.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_registration)
+        }
+
+        binding.btnAbout.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_about)
         }
     }
 

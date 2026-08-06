@@ -1,4 +1,4 @@
-package com.example.calkgp.model
+package com.polyarniq.calkgp.model
 
 enum class CourtType {
     PROPERTY_CLAIM,

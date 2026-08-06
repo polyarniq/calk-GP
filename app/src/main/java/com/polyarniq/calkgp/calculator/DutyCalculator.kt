@@ -1,6 +1,6 @@
-package com.example.calkgp.calculator
+package com.polyarniq.calkgp.calculator
 
-import com.example.calkgp.model.*
+import com.polyarniq.calkgp.model.*
 import kotlin.math.min
 
 object DutyCalculator {

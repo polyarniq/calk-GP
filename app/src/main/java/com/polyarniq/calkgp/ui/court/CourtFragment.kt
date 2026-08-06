@@ -1,4 +1,4 @@
-package com.example.calkgp.ui.arbitration
+package com.polyarniq.calkgp.ui.court
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,23 +9,28 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.calkgp.R
-import com.example.calkgp.calculator.DutyCalculator
-import com.example.calkgp.databinding.FragmentArbitrationBinding
-import com.example.calkgp.model.ArbitrationType
+import com.polyarniq.calkgp.R
+import com.polyarniq.calkgp.calculator.DutyCalculator
+import com.polyarniq.calkgp.databinding.FragmentCourtBinding
+import com.polyarniq.calkgp.model.CourtType
 
-class ArbitrationFragment : Fragment() {
+class CourtFragment : Fragment() {
 
-    private var _binding: FragmentArbitrationBinding? = null
+    private var _binding: FragmentCourtBinding? = null
     private val binding get() = _binding!!
 
     private val nonPropertyTypes = listOf(
-        "Неимущественный иск (ИП)" to ArbitrationType.NON_PROPERTY_IP,
-        "Неимущественный иск (организация)" to ArbitrationType.NON_PROPERTY_ORG
+        "Иск неимущественного характера" to CourtType.NON_PROPERTY_GENERAL,
+        "Расторжение брака" to CourtType.DIVORCE,
+        "Оспаривание НПА" to CourtType.CHALLENGE_NPA,
+        "Особое производство" to CourtType.SPECIAL_PROCEEDING,
+        "Надзорная жалоба" to CourtType.SUPERVISORY,
+        "Кассационная жалоба" to CourtType.CASSATION,
+        "Апелляционная жалоба" to CourtType.APPEAL
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentArbitrationBinding.inflate(inflater, container, false)
+        _binding = FragmentCourtBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,23 +53,23 @@ class ArbitrationFragment : Fragment() {
             val amountStr = binding.editAmount.text.toString().replace(",", ".")
             val amount = amountStr.toDoubleOrNull()
             if (amount == null || amount <= 0) {
-                Toast.makeText(requireContext(), "Введите сумму иска", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_amount), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val result = DutyCalculator.calculateArbitration(ArbitrationType.PROPERTY_CLAIM, amount)
+            val result = DutyCalculator.calculateCourt(CourtType.PROPERTY_CLAIM, amount)
             navigateToResult(result.amount, result.legalReference, result.description)
         }
 
         binding.dropdownType.setOnItemClickListener { _, _, position, _ ->
             val type = nonPropertyTypes[position].second
-            val result = DutyCalculator.calculateArbitration(type)
+            val result = DutyCalculator.calculateCourt(type)
             navigateToResult(result.amount, result.legalReference, result.description)
         }
     }
 
     private fun navigateToResult(amount: Double, legalRef: String, description: String) {
         findNavController().navigate(
-            R.id.action_arbitration_to_result,
+            R.id.action_court_to_result,
             bundleOf("amount" to amount.toFloat(), "legalRef" to legalRef, "description" to description)
         )
     }

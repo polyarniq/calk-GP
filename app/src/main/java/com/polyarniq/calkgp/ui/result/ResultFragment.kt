@@ -1,4 +1,4 @@
-package com.example.calkgp.ui.result
+package com.polyarniq.calkgp.ui.result
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.calkgp.R
-import com.example.calkgp.databinding.FragmentResultBinding
-import com.example.calkgp.util.FormatUtils
+import com.polyarniq.calkgp.R
+import com.polyarniq.calkgp.databinding.FragmentResultBinding
+import com.polyarniq.calkgp.util.FormatUtils
 
 class ResultFragment : Fragment() {
 
@@ -43,7 +43,7 @@ class ResultFragment : Fragment() {
             val text = "Госпошлина: ${FormatUtils.formatCurrencyInt(amount)}\n$description\n$legalRef"
             val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboard.setPrimaryClip(ClipData.newPlainText("gov_duty", text))
-            Toast.makeText(requireContext(), "Скопировано", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.copied), Toast.LENGTH_SHORT).show()
         }
     }
 

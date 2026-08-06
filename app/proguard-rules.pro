@@ -3,8 +3,8 @@
 -keepattributes SourceFile,LineNumberTable
 -keep public class * extends java.lang.Exception
 
--keep class com.example.calkgp.model.** { *; }
--keep class com.example.calkgp.calculator.** { *; }
+-keep class com.polyarniq.calkgp.model.** { *; }
+-keep class com.polyarniq.calkgp.calculator.** { *; }
 
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;

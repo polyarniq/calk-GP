@@ -1,4 +1,4 @@
-package com.example.calkgp.util
+package com.polyarniq.calkgp.util
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols

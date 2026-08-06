@@ -19,9 +19,18 @@ class ArbitrationFragment : Fragment() {
     private var _binding: FragmentArbitrationBinding? = null
     private val binding get() = _binding!!
 
-    private val nonPropertyTypes = listOf(
-        "Неимущественный иск (ИП)" to ArbitrationType.NON_PROPERTY_IP,
-        "Неимущественный иск (организация)" to ArbitrationType.NON_PROPERTY_ORG
+    private data class ArbOption(val name: String, val type: ArbitrationType, val needsAmount: Boolean)
+
+    private val options = listOf(
+        ArbOption("Иск имущественного характера", ArbitrationType.PROPERTY_CLAIM, true),
+        ArbOption("Судебный приказ", ArbitrationType.COURT_ORDER, true),
+        ArbOption("Иск неимущественного (ИП)", ArbitrationType.NON_PROPERTY_IP, false),
+        ArbOption("Иск неимущественного (орг.)", ArbitrationType.NON_PROPERTY_ORG, false),
+        ArbOption("Апелляционная жалоба (ИП)", ArbitrationType.APPEAL, false),
+        ArbOption("Кассационная жалоба (ИП)", ArbitrationType.CASSATION, false),
+        ArbOption("Надзорная жалоба в ВС РФ (ИП)", ArbitrationType.SUPERVISORY, false),
+        ArbOption("Банкротство (ИП)", ArbitrationType.BANKRUPTCY_IP, false),
+        ArbOption("Банкротство (организация)", ArbitrationType.BANKRUPTCY_ORG, false)
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -32,9 +41,11 @@ class ArbitrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toggleGroup.check(R.id.btnProperty)
+        binding.toggleGroup.check(R.id.btnNonProperty)
+        binding.propertyCard.visibility = View.GONE
+        binding.nonPropertyCard.visibility = View.VISIBLE
 
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nonPropertyTypes.map { it.first })
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, options.map { it.name })
         binding.dropdownType.setAdapter(adapter)
 
         binding.toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -56,9 +67,15 @@ class ArbitrationFragment : Fragment() {
         }
 
         binding.dropdownType.setOnItemClickListener { _, _, position, _ ->
-            val type = nonPropertyTypes[position].second
-            val result = DutyCalculator.calculateArbitration(type)
-            navigateToResult(result.amount, result.legalReference, result.description)
+            val option = options[position]
+            if (option.needsAmount) {
+                binding.toggleGroup.check(R.id.btnProperty)
+                binding.propertyCard.visibility = View.VISIBLE
+                binding.nonPropertyCard.visibility = View.GONE
+            } else {
+                val result = DutyCalculator.calculateArbitration(option.type)
+                navigateToResult(result.amount, result.legalReference, result.description)
+            }
         }
     }
 

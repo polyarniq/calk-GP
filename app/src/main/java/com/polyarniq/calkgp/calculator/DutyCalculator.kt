@@ -8,33 +8,42 @@ object DutyCalculator {
     fun calculateCourt(type: CourtType, claimAmount: Double = 0.0): DutyResult {
         return when (type) {
             CourtType.PROPERTY_CLAIM -> {
-                val amount = calcPropertyClaim(claimAmount)
-                DutyResult(amount, "ст. 333.19 п.1 НК РФ", "Госпошлина при обращении в суд общей юрисдикции (имущественный иск)")
+                val amount = calcCourtProperty(claimAmount)
+                DutyResult(amount, "ст. 333.19 п.1 пп.1 НК РФ", "Госпошлина при подаче искового заявления имущественного характера в суд общей юрисдикции")
             }
             CourtType.NON_PROPERTY_GENERAL ->
-                DutyResult(300.0, "ст. 333.19 п.3 НК РФ", "Исковое заявление неимущественного характера")
+                DutyResult(3000.0, "ст. 333.19 п.1 пп.3 НК РФ", "Исковое заявление неимущественного характера (для физических лиц)")
             CourtType.DIVORCE ->
-                DutyResult(600.0, "ст. 333.19 п.5 НК РФ", "Расторжение брака")
+                DutyResult(5000.0, "ст. 333.19 п.1 пп.5 НК РФ", "Исковое заявление о расторжении брака")
             CourtType.CHALLENGE_NPA ->
-                DutyResult(300.0, "ст. 333.19 п.6 НК РФ", "Оспаривание нормативного правового акта")
+                DutyResult(4000.0, "ст. 333.19 п.1 пп.6 НК РФ", "Административный иск об оспаривании НПА (для физ. лиц)")
             CourtType.SPECIAL_PROCEEDING ->
-                DutyResult(300.0, "ст. 333.19 п.8 НК РФ", "Особое производство")
+                DutyResult(3000.0, "ст. 333.19 п.1 пп.8 НК РФ", "Заявление по делам особого производства")
             CourtType.SUPERVISORY ->
-                DutyResult(300.0, "ст. 333.19 п.9 НК РФ", "Надзорная жалоба")
+                DutyResult(7000.0, "ст. 333.19 п.1 пп.21 НК РФ", "Кассационная или надзорная жалоба в ВС РФ (для физ. лиц)")
             CourtType.CASSATION ->
-                DutyResult(150.0, "ст. 333.19 п.9 НК РФ", "Кассационная жалоба")
+                DutyResult(5000.0, "ст. 333.19 п.1 пп.20 НК РФ", "Кассационная жалоба (для физических лиц)")
             CourtType.APPEAL ->
-                DutyResult(150.0, "ст. 333.19 п.9 НК РФ", "Апелляционная жалоба")
+                DutyResult(3000.0, "ст. 333.19 п.1 пп.19 НК РФ", "Апелляционная жалоба (для физических лиц)")
+            CourtType.COURT_ORDER -> {
+                val amount = calcCourtProperty(claimAmount) * 0.5
+                DutyResult(amount, "ст. 333.19 п.1 пп.2 НК РФ", "Заявление о вынесении судебного приказа (50% от пошлины за иск)")
+            }
         }
     }
 
-    private fun calcPropertyClaim(amount: Double): Double {
+    private fun calcCourtProperty(amount: Double): Double {
         return when {
-            amount <= 20_000 -> maxOf(amount * 0.04, 400.0)
-            amount <= 100_000 -> 800 + (amount - 20_000) * 0.03
-            amount <= 200_000 -> 3_200 + (amount - 100_000) * 0.02
-            amount <= 1_000_000 -> 5_200 + (amount - 200_000) * 0.01
-            else -> min(13_200 + (amount - 1_000_000) * 0.005, 60_000.0)
+            amount <= 100_000 -> 4_000.0
+            amount <= 300_000 -> 4_000 + (amount - 100_000) * 0.03
+            amount <= 500_000 -> 10_000 + (amount - 300_000) * 0.025
+            amount <= 1_000_000 -> 15_000 + (amount - 500_000) * 0.02
+            amount <= 3_000_000 -> 25_000 + (amount - 1_000_000) * 0.01
+            amount <= 8_000_000 -> 45_000 + (amount - 3_000_000) * 0.007
+            amount <= 24_000_000 -> 80_000 + (amount - 8_000_000) * 0.0035
+            amount <= 50_000_000 -> 136_000 + (amount - 24_000_000) * 0.003
+            amount <= 100_000_000 -> 214_000 + (amount - 50_000_000) * 0.002
+            else -> min(314_000 + (amount - 100_000_000) * 0.0015, 900_000.0)
         }
     }
 
@@ -42,90 +51,108 @@ object DutyCalculator {
         return when (type) {
             ArbitrationType.PROPERTY_CLAIM -> {
                 val amount = calcArbitrationProperty(claimAmount)
-                DutyResult(amount, "ст. 333.21 п.1 НК РФ", "Госпошлина при обращении в арбитражный суд (имущественный иск)")
+                DutyResult(amount, "ст. 333.21 п.1 пп.1 НК РФ", "Иск имущественного характера в арбитражный суд")
             }
             ArbitrationType.NON_PROPERTY_IP ->
-                DutyResult(3_000.0, "ст. 333.21 п.1 НК РФ", "Иск неимущественного характера (ИП)")
+                DutyResult(15_000.0, "ст. 333.21 п.1 пп.4 НК РФ", "Иск неимущественного характера (для физических лиц)")
             ArbitrationType.NON_PROPERTY_ORG ->
-                DutyResult(6_000.0, "ст. 333.21 п.1 НК РФ", "Иск неимущественного характера (организация)")
-            ArbitrationType.APPEAL -> {
-                val base = calcArbitrationProperty(claimAmount)
-                DutyResult(base * 0.5, "ст. 333.21 п.1 НК РФ", "Апелляционная жалоба (50% от пошлины за иск)")
-            }
-            ArbitrationType.CASSATION -> {
-                val base = calcArbitrationProperty(claimAmount)
-                DutyResult(base * 0.5, "ст. 333.21 п.1 НК РФ", "Кассационная жалоба (50% от пошлины за иск)")
+                DutyResult(50_000.0, "ст. 333.21 п.1 пп.4 НК РФ", "Иск неимущественного характера (для организаций)")
+            ArbitrationType.APPEAL ->
+                DutyResult(10_000.0, "ст. 333.21 п.1 пп.19 НК РФ", "Апелляционная жалоба (для физических лиц)")
+            ArbitrationType.CASSATION ->
+                DutyResult(20_000.0, "ст. 333.21 п.1 пп.20 НК РФ", "Кассационная жалоба (для физических лиц)")
+            ArbitrationType.SUPERVISORY ->
+                DutyResult(30_000.0, "ст. 333.21 п.1 пп.21 НК РФ", "Кассационная/надзорная жалоба в ВС РФ (для физ. лиц)")
+            ArbitrationType.BANKRUPTCY_IP ->
+                DutyResult(10_000.0, "ст. 333.21 п.1 пп.8 НК РФ", "Заявление о признании банкротом (для физ. лиц)")
+            ArbitrationType.BANKRUPTCY_ORG ->
+                DutyResult(100_000.0, "ст. 333.21 п.1 пп.8 НК РФ", "Заявление о признании банкротом (для организаций)")
+            ArbitrationType.COURT_ORDER -> {
+                val amount = calcArbitrationProperty(claimAmount) * 0.5
+                DutyResult(maxOf(amount, 8000.0), "ст. 333.21 п.1 пп.3 НК РФ", "Заявление о вынесении судебного приказа (50%, мин. 8000)")
             }
         }
     }
 
     private fun calcArbitrationProperty(amount: Double): Double {
         return when {
-            amount <= 100_000 -> maxOf(amount * 0.04, 2_000.0)
-            amount <= 200_000 -> 4_000 + (amount - 100_000) * 0.03
-            amount <= 1_000_000 -> 7_000 + (amount - 200_000) * 0.02
-            amount <= 2_000_000 -> 23_000 + (amount - 1_000_000) * 0.01
-            else -> min(33_000 + (amount - 2_000_000) * 0.005, 200_000.0)
+            amount <= 100_000 -> 10_000.0
+            amount <= 1_000_000 -> 10_000 + (amount - 100_000) * 0.05
+            amount <= 10_000_000 -> 55_000 + (amount - 1_000_000) * 0.03
+            amount <= 50_000_000 -> 325_000 + (amount - 10_000_000) * 0.01
+            else -> min(725_000 + (amount - 50_000_000) * 0.005, 10_000_000.0)
         }
     }
 
     fun calculateNotary(type: NotaryType, amount: Double = 0.0, relation: InheritanceRelation = InheritanceRelation.DIRECT): DutyResult {
         return when (type) {
             NotaryType.POWER_OF_ATTORNEY ->
-                DutyResult(200.0, "ст. 333.24 п.1 НК РФ", "Удостоверение доверенности")
+                DutyResult(200.0, "ст. 333.24 п.1 пп.1-3 НК РФ", "Удостоверение доверенности")
             NotaryType.WILL ->
-                DutyResult(100.0, "ст. 333.24 п.1 НК РФ", "Удостоверение завещания")
+                DutyResult(100.0, "ст. 333.24 п.1 пп.13 НК РФ", "Удостоверение завещания")
             NotaryType.INHERITANCE_DIRECT -> {
                 val duty = min(amount * 0.003, 100_000.0)
-                DutyResult(duty, "ст. 333.24 п.1 НК РФ", "Свидетельство о праве на наследство (дети, супруг, родители)")
+                DutyResult(duty, "ст. 333.24 п.1 пп.22 НК РФ", "Свидетельство о праве на наследство (дети, супруг, родители, братья/сёстры)")
             }
             NotaryType.INHERITANCE_OTHER -> {
                 val duty = min(amount * 0.006, 1_000_000.0)
-                DutyResult(duty, "ст. 333.24 п.1 НК РФ", "Свидетельство о праве на наследство (другие наследники)")
+                DutyResult(duty, "ст. 333.24 п.1 пп.22 НК РФ", "Свидетельство о праве на наследство (другие наследники)")
             }
             NotaryType.INHERITANCE_PROTECTION ->
-                DutyResult(600.0, "ст. 333.24 п.1 НК РФ", "Принятие мер по охране наследства")
+                DutyResult(600.0, "ст. 333.24 п.1 пп.23 НК РФ", "Принятие мер по охране наследства")
             NotaryType.DEAL_CERTIFICATION ->
-                DutyResult(500.0, "ст. 333.24 п.1 НК РФ", "Удостоверение сделки")
+                DutyResult(500.0, "ст. 333.24 п.1 пп.6 НК РФ", "Удостоверение сделки, предмет которой не подлежит оценке")
         }
     }
 
     fun calculateZags(type: ZagsType): DutyResult {
         return when (type) {
             ZagsType.MARRIAGE ->
-                DutyResult(350.0, "ст. 333.26 п.1 НК РФ", "Государственная регистрация заключения брака")
+                DutyResult(350.0, "ст. 333.26 п.1 пп.1 НК РФ", "Регистрация заключения брака")
             ZagsType.DIVORCE_MUTUAL ->
-                DutyResult(650.0, "ст. 333.26 п.2 НК РФ", "Расторжение брака по обоюдному согласию (с каждого)")
+                DutyResult(5000.0, "ст. 333.26 п.1 пп.2 НК РФ", "Расторжение брака при взаимном согласии (с каждого)")
             ZagsType.DIVORCE_COURT ->
-                DutyResult(350.0, "ст. 333.26 п.2 НК РФ", "Расторжение брака на основании решения суда")
+                DutyResult(5000.0, "ст. 333.26 п.1 пп.2 НК РФ", "Расторжение брака в судебном порядке (с каждого)")
+            ZagsType.DIVORCE_ABSENT ->
+                DutyResult(350.0, "ст. 333.26 п.1 пп.2 НК РФ", "Расторжение по заявлению одного супруга (супруг безвестно отсутствует/недееспособен/осуждён)")
+            ZagsType.NAME_CHANGE ->
+                DutyResult(5000.0, "ст. 333.26 п.1 пп.4 НК РФ", "Регистрация перемены имени")
+            ZagsType.PATERNITY ->
+                DutyResult(350.0, "ст. 333.26 п.1 пп.3 НК РФ", "Регистрация установления отцовства")
             ZagsType.REPEAT_CERTIFICATE ->
-                DutyResult(350.0, "ст. 333.26 п.6 НК РФ", "Повторное свидетельство / справка")
+                DutyResult(500.0, "ст. 333.26 п.1 пп.6 НК РФ", "Повторное свидетельство о регистрации акта")
+            ZagsType.ARCHIVE_CERTIFICATE ->
+                DutyResult(350.0, "ст. 333.26 п.1 пп.7 НК РФ", "Справка из архива ЗАГС")
         }
     }
 
     fun calculateRosreestr(type: RosreestrType): DutyResult {
         return when (type) {
             RosreestrType.RIGHT_INDIVIDUAL ->
-                DutyResult(2_000.0, "ст. 333.33 п.1 НК РФ", "Регистрация права (физическое лицо)")
+                DutyResult(4_000.0, "ст. 333.33 п.1 пп.22 НК РФ", "Регистрация права (физ. лицо, кадастр. ст-ть до 20 млн ₽)")
             RosreestrType.RIGHT_LEGAL ->
-                DutyResult(22_000.0, "ст. 333.33 п.1 НК РФ", "Регистрация права (юридическое лицо)")
+                DutyResult(44_000.0, "ст. 333.33 п.1 пп.22 НК РФ", "Регистрация права (юр. лицо, кадастр. ст-ть до 22 млн ₽)")
             RosreestrType.MORTGAGE ->
-                DutyResult(1_000.0, "ст. 333.33 п.1 НК РФ", "Регистрация ипотеки")
+                DutyResult(1_000.0, "ст. 333.33 п.1 пп.28 НК РФ", "Регистрация ипотеки")
             RosreestrType.DDU ->
-                DutyResult(350.0, "ст. 333.33 п.1 НК РФ", "Регистрация договора долевого участия")
+                DutyResult(350.0, "ст. 333.33 п.1 пп.30 НК РФ", "Регистрация договора долевого участия")
+            RosreestrType.LAND_PLOT ->
+                DutyResult(700.0, "ст. 333.33 п.1 пп.24 НК РФ", "Регистрация земельного участка (ЛПХ, садоводство, ИЖС)")
+            RosreestrType.CADASTRAL_ONLY ->
+                DutyResult(2_000.0, "ст. 333.33 п.1 пп.22.2 НК РФ", "Государственный кадастровый учёт без регистрации прав")
         }
     }
 
     fun calculateFns(type: FnsType): DutyResult {
         return when (type) {
             FnsType.LLC ->
-                DutyResult(4_000.0, "ст. 333.33 п.1 НК РФ", "Регистрация юридического лица (ООО)")
+                DutyResult(4_000.0, "ст. 333.33 п.1 пп.1 НК РФ", "Государственная регистрация юридического лица")
             FnsType.IP ->
-                DutyResult(800.0, "ст. 333.33 п.1 НК РФ", "Регистрация ИП")
+                DutyResult(800.0, "ст. 333.33 п.1 пп.6 НК РФ", "Государственная регистрация физического лица в качестве ИП")
             FnsType.CHARTER_CHANGES ->
-                DutyResult(800.0, "ст. 333.33 п.1 НК РФ", "Внесение изменений в учредительные документы")
+                DutyResult(800.0, "ст. 333.33 п.1 пп.3 НК РФ", "Регистрация изменений в учредительные документы (20% от 4000)")
             FnsType.LIQUIDATION ->
-                DutyResult(800.0, "ст. 333.33 п.1 НК РФ", "Ликвидация юридического лица")
+                DutyResult(800.0, "ст. 333.33 п.1 пп.3 НК РФ", "Государственная регистрация ликвидации юридического лица (20% от 4000)")
         }
     }
 }

@@ -24,8 +24,8 @@ class NotaryFragment : Fragment() {
     private val options = listOf(
         NotaryOption("Доверенность", NotaryType.POWER_OF_ATTORNEY, false),
         NotaryOption("Завещание", NotaryType.WILL, false),
-        NotaryOption("Наследство — дети, супруг, родители", NotaryType.INHERITANCE_DIRECT, true),
-        NotaryOption("Наследство — другие наследники", NotaryType.INHERITANCE_OTHER, true),
+        NotaryOption("Наследство — дети, супруг, родители (0.3%)", NotaryType.INHERITANCE_DIRECT, true),
+        NotaryOption("Наследство — другие наследники (0.6%)", NotaryType.INHERITANCE_OTHER, true),
         NotaryOption("Охрана наследства", NotaryType.INHERITANCE_PROTECTION, false),
         NotaryOption("Удостоверение сделки", NotaryType.DEAL_CERTIFICATION, false)
     )

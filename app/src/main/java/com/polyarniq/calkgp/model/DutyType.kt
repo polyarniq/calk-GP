@@ -8,7 +8,8 @@ enum class CourtType {
     SPECIAL_PROCEEDING,
     SUPERVISORY,
     CASSATION,
-    APPEAL
+    APPEAL,
+    COURT_ORDER
 }
 
 enum class ArbitrationType {
@@ -16,7 +17,11 @@ enum class ArbitrationType {
     NON_PROPERTY_IP,
     NON_PROPERTY_ORG,
     APPEAL,
-    CASSATION
+    CASSATION,
+    SUPERVISORY,
+    BANKRUPTCY_IP,
+    BANKRUPTCY_ORG,
+    COURT_ORDER
 }
 
 enum class NotaryType {
@@ -43,14 +48,20 @@ enum class ZagsType {
     MARRIAGE,
     DIVORCE_MUTUAL,
     DIVORCE_COURT,
-    REPEAT_CERTIFICATE
+    DIVORCE_ABSENT,
+    NAME_CHANGE,
+    PATERNITY,
+    REPEAT_CERTIFICATE,
+    ARCHIVE_CERTIFICATE
 }
 
 enum class RosreestrType {
     RIGHT_INDIVIDUAL,
     RIGHT_LEGAL,
     MORTGAGE,
-    DDU
+    DDU,
+    LAND_PLOT,
+    CADASTRAL_ONLY
 }
 
 enum class FnsType {

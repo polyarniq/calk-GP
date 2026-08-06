@@ -19,14 +19,18 @@ class CourtFragment : Fragment() {
     private var _binding: FragmentCourtBinding? = null
     private val binding get() = _binding!!
 
-    private val nonPropertyTypes = listOf(
-        "Иск неимущественного характера" to CourtType.NON_PROPERTY_GENERAL,
-        "Расторжение брака" to CourtType.DIVORCE,
-        "Оспаривание НПА" to CourtType.CHALLENGE_NPA,
-        "Особое производство" to CourtType.SPECIAL_PROCEEDING,
-        "Надзорная жалоба" to CourtType.SUPERVISORY,
-        "Кассационная жалоба" to CourtType.CASSATION,
-        "Апелляционная жалоба" to CourtType.APPEAL
+    private data class CourtOption(val name: String, val type: CourtType, val needsAmount: Boolean)
+
+    private val options = listOf(
+        CourtOption("Иск имущественного характера", CourtType.PROPERTY_CLAIM, true),
+        CourtOption("Судебный приказ", CourtType.COURT_ORDER, true),
+        CourtOption("Иск неимущественного характера", CourtType.NON_PROPERTY_GENERAL, false),
+        CourtOption("Расторжение брака", CourtType.DIVORCE, false),
+        CourtOption("Оспаривание НПА", CourtType.CHALLENGE_NPA, false),
+        CourtOption("Особое производство", CourtType.SPECIAL_PROCEEDING, false),
+        CourtOption("Апелляционная жалоба", CourtType.APPEAL, false),
+        CourtOption("Кассационная жалоба", CourtType.CASSATION, false),
+        CourtOption("Надзорная жалоба в ВС РФ", CourtType.SUPERVISORY, false)
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -37,9 +41,11 @@ class CourtFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toggleGroup.check(R.id.btnProperty)
+        binding.toggleGroup.check(R.id.btnNonProperty)
+        binding.propertyCard.visibility = View.GONE
+        binding.nonPropertyCard.visibility = View.VISIBLE
 
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, nonPropertyTypes.map { it.first })
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, options.map { it.name })
         binding.dropdownType.setAdapter(adapter)
 
         binding.toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -61,9 +67,15 @@ class CourtFragment : Fragment() {
         }
 
         binding.dropdownType.setOnItemClickListener { _, _, position, _ ->
-            val type = nonPropertyTypes[position].second
-            val result = DutyCalculator.calculateCourt(type)
-            navigateToResult(result.amount, result.legalReference, result.description)
+            val option = options[position]
+            if (option.needsAmount) {
+                binding.toggleGroup.check(R.id.btnProperty)
+                binding.propertyCard.visibility = View.VISIBLE
+                binding.nonPropertyCard.visibility = View.GONE
+            } else {
+                val result = DutyCalculator.calculateCourt(option.type)
+                navigateToResult(result.amount, result.legalReference, result.description)
+            }
         }
     }
 

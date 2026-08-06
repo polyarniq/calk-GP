@@ -23,16 +23,22 @@ class RegistrationFragment : Fragment() {
 
     private val zagsActions = listOf(
         "Регистрация брака" to ZagsType.MARRIAGE,
-        "Расторжение (по обоюдному согласию)" to ZagsType.DIVORCE_MUTUAL,
-        "Расторжение (по решению суда)" to ZagsType.DIVORCE_COURT,
-        "Повторное свидетельство" to ZagsType.REPEAT_CERTIFICATE
+        "Расторжение (взаимное согласие)" to ZagsType.DIVORCE_MUTUAL,
+        "Расторжение (судебный порядок)" to ZagsType.DIVORCE_COURT,
+        "Расторжение (один супруг)" to ZagsType.DIVORCE_ABSENT,
+        "Перемена имени" to ZagsType.NAME_CHANGE,
+        "Установление отцовства" to ZagsType.PATERNITY,
+        "Повторное свидетельство" to ZagsType.REPEAT_CERTIFICATE,
+        "Справка из архива" to ZagsType.ARCHIVE_CERTIFICATE
     )
 
     private val rosreestrActions = listOf(
         "Право собственности (физ. лицо)" to RosreestrType.RIGHT_INDIVIDUAL,
         "Право собственности (юр. лицо)" to RosreestrType.RIGHT_LEGAL,
         "Ипотека" to RosreestrType.MORTGAGE,
-        "Договор долевого участия" to RosreestrType.DDU
+        "Договор долевого участия" to RosreestrType.DDU,
+        "Земельный участок (ЛПХ, ИЖС)" to RosreestrType.LAND_PLOT,
+        "Кадастровый учёт" to RosreestrType.CADASTRAL_ONLY
     )
 
     private val fnsActions = listOf(

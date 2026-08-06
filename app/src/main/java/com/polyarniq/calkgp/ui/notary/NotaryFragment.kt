@@ -50,7 +50,7 @@ class NotaryFragment : Fragment() {
             val selectedName = binding.dropdownAction.text.toString()
             val option = options.find { it.name == selectedName }
             if (option == null) {
-                Toast.makeText(requireContext(), getString(R.string.hint_select), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Выберите действие", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -67,7 +67,7 @@ class NotaryFragment : Fragment() {
             val result = DutyCalculator.calculateNotary(option.type, amount)
             findNavController().navigate(
                 R.id.action_notary_to_result,
-                bundleOf("amount" to result.amount.toFloat(), "legalRef" to result.legalReference, "description" to result.description)
+                bundleOf("amount" to result.amount, "legalRef" to result.legalReference, "description" to result.description)
             )
         }
     }

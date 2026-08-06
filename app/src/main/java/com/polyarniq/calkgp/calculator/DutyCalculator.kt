@@ -84,7 +84,7 @@ object DutyCalculator {
         }
     }
 
-    fun calculateNotary(type: NotaryType, amount: Double = 0.0, relation: InheritanceRelation = InheritanceRelation.DIRECT): DutyResult {
+    fun calculateNotary(type: NotaryType, amount: Double = 0.0): DutyResult {
         return when (type) {
             NotaryType.POWER_OF_ATTORNEY ->
                 DutyResult(200.0, "ст. 333.24 п.1 пп.1-3 НК РФ", "Удостоверение доверенности")

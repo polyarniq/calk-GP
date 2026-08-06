@@ -33,17 +33,6 @@ enum class NotaryType {
     DEAL_CERTIFICATION
 }
 
-enum class InheritanceRelation {
-    DIRECT,
-    OTHER
-}
-
-enum class RegistrationCategory {
-    ZAGS,
-    ROSREESTR,
-    FNS
-}
-
 enum class ZagsType {
     MARRIAGE,
     DIVORCE_MUTUAL,

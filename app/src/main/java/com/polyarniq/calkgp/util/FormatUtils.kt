@@ -6,18 +6,19 @@ import java.util.Locale
 
 object FormatUtils {
 
-    private val format = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale("ru", "RU")).apply {
+    private val symbols = DecimalFormatSymbols(Locale("ru", "RU")).apply {
         groupingSeparator = ' '
         decimalSeparator = ','
-    })
+    }
+
+    private val formatFull = DecimalFormat("#,##0.00", symbols)
+    private val formatInt = DecimalFormat("#,##0", symbols)
 
     fun formatCurrency(amount: Double): String {
-        return "${format.format(amount)} ₽"
+        return "${formatFull.format(amount)} ₽"
     }
 
     fun formatCurrencyInt(amount: Double): String {
-        return "${DecimalFormat("#,##0", DecimalFormatSymbols(Locale("ru", "RU")).apply {
-            groupingSeparator = ' '
-        }).format(amount)} ₽"
+        return "${formatInt.format(amount)} ₽"
     }
 }

@@ -10,12 +10,6 @@
     <string name="copyright">© 2026 polyarniq. Все права защищены.</string>
     <string name="home_subtitle">Выберите категорию для расчёта</string>
     <string name="home_legal_ref">На основании Налогового кодекса РФ, глава 25.3</string>
-    <string name="btn_calculate">Рассчитать</string>
-    <string name="btn_again">Рассчитать ещё</string>
-    <string name="btn_copy">Скопировать</string>
-    <string name="result_title">Размер госпошлины</string>
-    <string name="hint_amount">Введите сумму в рублях</string>
-    <string name="hint_select">Выберите</string>
     <string name="error_amount">Введите сумму</string>
     <string name="copied">Скопировано</string>
 </resources>

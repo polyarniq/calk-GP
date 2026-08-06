@@ -76,7 +76,7 @@ class RegistrationFragment : Fragment() {
             val result = calculateForCategory(currentCategory, type)
             findNavController().navigate(
                 R.id.action_registration_to_result,
-                bundleOf("amount" to result.amount.toFloat(), "legalRef" to result.legalReference, "description" to result.description)
+                bundleOf("amount" to result.amount, "legalRef" to result.legalReference, "description" to result.description)
             )
         }
     }

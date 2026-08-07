@@ -50,6 +50,29 @@ object DutyCalculator {
                 val amount = calcCourtProperty(claimAmount) * 0.5
                 DutyResult(amount, "ст. 333.19 п.1 пп.2 НК РФ", "Заявление о вынесении судебного приказа (50% от пошлины за иск)")
             }
+            CourtType.SUCCESSION ->
+                if (isPhysicalPerson)
+                    DutyResult(2000.0, "ст. 333.19 п.1 пп.9 НК РФ", "Заявление о правопреемстве, кроме случаев универсального правопреемства. Подается физическим лицом. ст. 333.19 п. 1, пп. 9 НК РФ")
+                else
+                    DutyResult(15000.0, "ст. 333.19 п.1 пп.9 НК РФ", "Заявление о правопреемстве, кроме случаев универсального правопреемства. Подается организацией. ст. 333.19 п. 1, пп. 9 НК РФ")
+            CourtType.ARBITRATION_ENFORCEMENT -> {
+                val baseDuty = calcCourtProperty(claimAmount)
+                val amount = baseDuty * 0.3
+                DutyResult(amount, "ст. 333.19 п.1 пп.10 НК РФ", "Заявление о выдаче исполнительных листов на принудительное исполнение решений третейского суда. ст. 333.19 п. 1 пп. 10")
+            }
+            CourtType.FOREIGN_COURT_RECOGNITION -> {
+                val baseDuty = calcCourtProperty(claimAmount)
+                val amount = baseDuty * 0.3
+                DutyResult(amount, "ст. 333.19 п.1 пп.10 НК РФ", "Заявление о признании и об исполнении решения иностранного суда, иностранных третейских судов (арбитражей). ст. 333.19 п. 1 пп. 10")
+            }
+            CourtType.ARBITRATION_CANCELLATION -> {
+                val amount = calcCourtProperty(claimAmount)
+                DutyResult(amount, "ст. 333.19 п.1 пп.11 НК РФ", "Заявление об отмене решения третейского суда. ст. 333.19 п. 1 пп. 11")
+            }
+            CourtType.DUPLICATE_EXECUTION ->
+                DutyResult(1500.0, "ст. 333.19 п.1 пп.12 НК РФ", "Заявление о выдаче дубликата исполнительного листа. ст. 333.19 п. 1, пп. 12 НК РФ")
+            CourtType.REVIEW_ABSENTIA ->
+                DutyResult(1500.0, "ст. 333.19 п.1 пп.12 НК РФ", "Заявление о пересмотре заочного решения судом, вынесшим это решение. ст. 333.19 п. 1, пп. 12 НК РФ")
         }
     }
 

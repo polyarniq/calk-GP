@@ -31,6 +31,12 @@ class CourtFragment : Fragment() {
         CourtOption("Оспаривание НПА", CourtType.CHALLENGE_NPA, false, true),
         CourtOption("Признание ненормативного правового акта недействительным", CourtType.NON_REGULATORY_ACT, false, true),
         CourtOption("Особое производство", CourtType.SPECIAL_PROCEEDING, false, false),
+        CourtOption("Заявление о правопреемстве", CourtType.SUCCESSION, false, true),
+        CourtOption("Принудительное исполнение решений третейского суда", CourtType.ARBITRATION_ENFORCEMENT, true, false),
+        CourtOption("Признание и исполнение решений иностранных судов", CourtType.FOREIGN_COURT_RECOGNITION, true, false),
+        CourtOption("Отмена решений третейского суда", CourtType.ARBITRATION_CANCELLATION, true, false),
+        CourtOption("Выдача дубликата исполнительного листа", CourtType.DUPLICATE_EXECUTION, false, false),
+        CourtOption("Пересмотр заочного решения судом", CourtType.REVIEW_ABSENTIA, false, false),
         CourtOption("Апелляционная жалоба", CourtType.APPEAL, false, false),
         CourtOption("Кассационная жалоба", CourtType.CASSATION, false, false),
         CourtOption("Надзорная жалоба в ВС РФ", CourtType.SUPERVISORY, false, false)

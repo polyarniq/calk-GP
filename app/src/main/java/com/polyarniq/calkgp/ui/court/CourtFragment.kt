@@ -37,9 +37,15 @@ class CourtFragment : Fragment() {
         CourtOption("Отмена решений третейского суда", CourtType.ARBITRATION_CANCELLATION, true, false),
         CourtOption("Выдача дубликата исполнительного листа", CourtType.DUPLICATE_EXECUTION, false, false),
         CourtOption("Пересмотр заочного решения судом", CourtType.REVIEW_ABSENTIA, false, false),
-        CourtOption("Апелляционная жалоба", CourtType.APPEAL, false, false),
-        CourtOption("Кассационная жалоба", CourtType.CASSATION, false, false),
-        CourtOption("Надзорная жалоба в ВС РФ", CourtType.SUPERVISORY, false, false)
+        CourtOption("Восстановление срока / отсрочка / рассрочка / поворот исполнения / разъяснение", CourtType.RESTORATION_OF_DEADLINE, false, false),
+        CourtOption("Пересмотр по новым или вновь открывшимся обстоятельствам", CourtType.REVIEW_NEW_CIRCUMSTANCES, false, false),
+        CourtOption("Обеспечение иска / замена обеспечительной меры / отмена обеспечения", CourtType.PROVISIONAL_MEASURES, false, false),
+        CourtOption("Взыскание алиментов", CourtType.ALIMONY, false, false),
+        CourtOption("Компенсация за нарушение права на судопроизводство в разумный срок", CourtType.COMPENSATION_TIMELINESS, false, true),
+        CourtOption("Компенсация за нарушение условий содержания под стражей", CourtType.COMPENSATION_DETENTION, false, false),
+        CourtOption("Апелляционная жалоба", CourtType.APPEAL, false, true),
+        CourtOption("Кассационная жалоба", CourtType.CASSATION, false, true),
+        CourtOption("Надзорная жалоба в ВС РФ", CourtType.SUPERVISORY, false, true)
     )
 
     private val personTypeOptions = listOf("Физическое лицо", "Организация")
@@ -67,7 +73,9 @@ class CourtFragment : Fragment() {
             selectedOption = option
             binding.amountCard.visibility = if (option.needsAmount) View.VISIBLE else View.GONE
             binding.personTypeCard.visibility = if (option.needsPersonType) View.VISIBLE else View.GONE
+            binding.alimonyCard.visibility = if (option.type == CourtType.ALIMONY) View.VISIBLE else View.GONE
             binding.editAmount.text?.clear()
+            binding.switchAlimony.isChecked = false
         }
 
         binding.dropdownPersonType.setOnItemClickListener { _, _, position, _ ->
@@ -89,6 +97,8 @@ class CourtFragment : Fragment() {
                     return@setOnClickListener
                 }
                 parsed
+            } else if (option.type == CourtType.ALIMONY) {
+                if (binding.switchAlimony.isChecked) 1.0 else 0.0
             } else 0.0
 
             val result = DutyCalculator.calculateCourt(option.type, amount, selectedIsPhysicalPerson)

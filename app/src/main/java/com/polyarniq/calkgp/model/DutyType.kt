@@ -2,9 +2,12 @@ package com.polyarniq.calkgp.model
 
 enum class CourtType {
     PROPERTY_CLAIM,
+    NON_PROPERTY_CLAIM,
     NON_PROPERTY_GENERAL,
+    CONTRACT_CLAIM,
     DIVORCE,
     CHALLENGE_NPA,
+    NON_REGULATORY_ACT,
     SPECIAL_PROCEEDING,
     SUPERVISORY,
     CASSATION,

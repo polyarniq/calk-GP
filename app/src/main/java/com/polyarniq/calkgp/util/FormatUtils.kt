@@ -11,12 +11,7 @@ object FormatUtils {
         decimalSeparator = ','
     }
 
-    private val formatFull = DecimalFormat("#,##0.00", symbols)
     private val formatInt = DecimalFormat("#,##0", symbols)
-
-    fun formatCurrency(amount: Double): String {
-        return "${formatFull.format(amount)} ₽"
-    }
 
     fun formatCurrencyInt(amount: Double): String {
         return "${formatInt.format(amount)} ₽"

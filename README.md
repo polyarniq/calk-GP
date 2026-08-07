@@ -4,6 +4,33 @@
 
 Android-приложение для расчёта государственной пошлины на основании главы 25.3 Налогового кодекса Российской Федерации.
 
+## О проекте
+
+**CalkGP** — мобильный калькулятор государственной пошлины Российской Федерации. Приложение позволяет за несколько секунд рассчитать размер госпошлины по всем основным категориям, предусмотренным главой 25.3 Налогового кодекса РФ, без необходимости искать актуальные тарифы вручную.
+
+### Зачем
+
+Размер государственной пошлины зависит от типа обращения, суммы иска и инстанции. Тарифы установлены в разных статьях НК РФ, а расчёт для имущественных требований выполняется по многоступенчатой формуле. CalkGP сводит всё в один экран: выбрать категорию — ввести сумму — получить результат со ссылкой на конкретный пункт закона.
+
+### Архитектура
+
+Приложение построено по стандартной архитектуре Android с одним `Activity` и набором `Fragment`-ов, связанных через Jetpack Navigation:
+
+- **UI-слой** — фрагменты для каждой категории (суды, арбитраж, нотариат, регистрация) и экран результата
+- **Бизнес-логика** — `DutyCalculator` содержит все формулы расчёта по статьям 333.19, 333.21, 333.24–333.26, 333.33 НК РФ
+- **ViewBinding** — типобезопасный доступ к элементам интерфейса без лишнего boilerplate
+
+### Технологии
+
+| Компонент | Технология |
+|---|---|
+| Язык | Kotlin |
+| UI | Material Design 3, Jetpack Navigation |
+| Сборка | Gradle (Kotlin DSL), AGP 8.7.3 |
+| CI/CD | GitHub Actions — автоматическая сборка и публикация релизов |
+| Минимальная версия | Android 8.0 (API 26) |
+| Целевая версия | Android 15 (API 35) |
+
 ## Скриншоты
 
 | Главный экран | Расчёт пошлины |
@@ -43,6 +70,33 @@ APK будет создан в `app/build/outputs/apk/debug/`.
 # CalkGP — Russian State Duty Calculator
 
 Android application for calculating Russian state duties (государственная пошлина) based on Chapter 25.3 of the Tax Code of the Russian Federation.
+
+## About
+
+**CalkGP** is a mobile calculator for Russian state duties (государственная пошлина). It lets you instantly calculate the duty amount across all major categories defined in Chapter 25.3 of the Russian Tax Code — no need to look up rates manually.
+
+### Why
+
+The duty amount depends on the type of filing, the claim value, and the court instance. Rates are spread across multiple articles of the Tax Code, and property-based calculations use a multi-tier formula. CalkGP brings it all to one screen: pick a category, enter the amount, get the result with a reference to the specific legal provision.
+
+### Architecture
+
+The app follows a standard single-Activity architecture with Fragment-based screens connected via Jetpack Navigation:
+
+- **UI layer** — dedicated fragments for each category (courts, arbitration, notary, registration) and a result screen
+- **Business logic** — `DutyCalculator` contains all calculation formulas per Articles 333.19, 333.21, 333.24–333.26, 333.33 of the Tax Code
+- **ViewBinding** — type-safe view access without boilerplate
+
+### Tech Stack
+
+| Component | Technology |
+|---|---|
+| Language | Kotlin |
+| UI | Material Design 3, Jetpack Navigation |
+| Build | Gradle (Kotlin DSL), AGP 8.7.3 |
+| CI/CD | GitHub Actions — automated build and release publishing |
+| Min SDK | Android 8.0 (API 26) |
+| Target SDK | Android 15 (API 35) |
 
 ## Screenshots
 
